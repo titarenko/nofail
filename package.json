@@ -1,0 +1,37 @@
+{
+  "name": "nofail",
+  "version": "0.1.0",
+  "description": "Failover version builder for `fn(array)`. Promise-based.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "lodash": "^3.9.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "should": "^7.0.1",
+    "sinon": "^1.15.3"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/titarenko/nofail.git"
+  },
+  "keywords": [
+    "failover",
+    "nofail",
+    "array",
+    "processing"
+  ],
+  "author": "Constantin Titarenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/titarenko/nofail/issues"
+  },
+  "homepage": "https://github.com/titarenko/nofail#readme"
+}
