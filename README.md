@@ -13,21 +13,27 @@ npm i nofail --save
 ```js
 var nofail = require('nofail');
 
+// assume it is remote endpoint implementation, which is called using HTTP request
 function greet (names) {
+	// this is 'validation'
+	if (_.contains(names, 'Bob')) {
+		throw new Error('Sorry Bob!');
+	}
+	// this is 'batch processing'
 	return names.map(function (name) {
-		if (name === 'Bob') {
-			throw new Error('Sorry Bob!');
-		}
 		return 'Hi ' + name;
 	});
 }
 
-var greetFailover = nofail(greet, console.log);
+function failureHandler (error, item) {
+	console.log(item, 'is causing', error.toString(), 'error');
+}
+
+var greetFailover = nofail(greet, failureHandler);
 
 greetFailover(['Melissa', 'Bob', 'Jess', 'Peter']).then(console.log)
 
-// Sorry Bob!
-// ...
+// Bob is causing Sorry Bob! error
 // ['Hi Melissa', 'Hi Jess', 'Hi Peter']
 ```
 
