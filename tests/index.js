@@ -55,4 +55,11 @@ describe('nofail', function () {
 		}).catch(done);
 	});
 
+	it('should return empty array if everything fails', function (done) {
+		execute(['Bob', 'Bob']).then(function (results) {
+			results.should.have.lengthOf(0);
+			done();
+		}).catch(done);
+	});
+
 });
