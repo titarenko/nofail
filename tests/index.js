@@ -62,4 +62,16 @@ describe('nofail', function () {
 		}).catch(done);
 	});
 
+	it('should pass all arguments to wrapped function', function (done) {
+		var fn = sinon.spy();
+		var nofailFn = nofail(fn);
+
+		nofailFn([1], 2, 3);
+
+		fn.firstCall.args[0].should.eql([1]);
+		fn.firstCall.args[1].should.eql(2);
+		fn.firstCall.args[2].should.eql(3);
+		done();
+	});
+
 });

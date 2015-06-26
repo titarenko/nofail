@@ -11,7 +11,10 @@ function failoverBuilder (fn, failureHandler) {
 }
 
 function failoverArrayProcessing (fn, failureHandler, array) {
-	var result = Promise.resolve().then(_.partial(fn, array));
+	var args = Array.prototype.slice.call(arguments, 2);
+	var result = Promise.try(function () {
+		return fn.apply(this, args);
+	});
 
 	if (!_.isArray(array)) {
 		// if not array, behave like there is no wrapper
