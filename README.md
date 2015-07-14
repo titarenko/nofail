@@ -37,6 +37,12 @@ greetFailover(['Melissa', 'Bob', 'Jess', 'Peter']).then(console.log)
 // ['Hi Melissa', 'Hi Jess', 'Hi Peter']
 ```
 
+Also, you can pass any number of additional arguments (after `array` argument). They will be passed to `fn` on each call.
+
+```js
+greetFailover(['Me', 'You'], 'custom1', 12, { any: 'data' }).then(console.log);
+```
+
 ## Motivation
 
 Assume you are sending batch of items to certain web service (in a single request) and whole call fails. And the reason is that some of items do not pass remote validation. But you still want to make correct items to be accepted, so you are trying failover solution, which will try to send them, dividing initial batch into smaller ones until everything but erroneous is accepted by remote server.

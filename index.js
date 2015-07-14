@@ -20,8 +20,11 @@ function failoverArrayProcessing (fn, failureHandler, array) {
 		// if not array, behave like there is no wrapper
 		return result;
 	}
-	
-	var mapper = _.partial(failoverArrayProcessing, fn, failureHandler);
+
+	var arrayMapper = _.partial(failoverArrayProcessing, fn, failureHandler);
+	var customArgs = args.slice(1);
+	var mapperWithCustomArgs = _.partialRight.apply(_, [arrayMapper].concat(customArgs));
+	var mapper = _.ary(mapperWithCustomArgs, 1);
 	var filter = _.partialRight(_.filter, function (item) {
 		return item !== undefined;
 	});

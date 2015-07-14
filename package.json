@@ -1,6 +1,6 @@
 {
   "name": "nofail",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Failover version builder for `fn(array)`. Promise-based.",
   "main": "index.js",
   "directories": {

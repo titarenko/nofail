@@ -66,12 +66,23 @@ describe('nofail', function () {
 		var fn = sinon.spy();
 		var nofailFn = nofail(fn);
 
-		nofailFn([1], 2, 3);
+		nofailFn([1], 2, 3).finally(function () {
+			fn.firstCall.args[0].should.eql([1]);
+			fn.firstCall.args[1].should.eql(2);
+			fn.firstCall.args[2].should.eql(3);
+		}).finally(done);
+	});
 
-		fn.firstCall.args[0].should.eql([1]);
-		fn.firstCall.args[1].should.eql(2);
-		fn.firstCall.args[2].should.eql(3);
-		done();
+	it('should pass all arguments to wrapped function not only for first call', function (done) {
+		var fn = sinon.spy(sinon.stub().throws());
+		var nofailFn = nofail(fn);
+
+		nofailFn([1, 2, 3, 4], 2, 3).finally(function () {
+			var call = fn.getCall(2);
+			call.args[0].should.eql([1, 2]);
+			call.args[1].should.eql(2);
+			call.args[2].should.eql(3);
+		}).finally(done);
 	});
 
 });
