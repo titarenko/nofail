@@ -31,8 +31,7 @@ describe('nofail', function () {
 			results.should.have.lengthOf(3);
 			results.should.containEql('Hi Melissa');
 			results.should.not.containEql('Hi Bob');
-			done();
-		}).catch(done);
+		}).finally(done);
 	});
 
 	it('should call failure handler', function (done) {
@@ -41,8 +40,7 @@ describe('nofail', function () {
 			failureHandler.called.should.eql(true);
 			failureHandler.firstCall.args[0].should.be.instanceOf(Error);
 			failureHandler.firstCall.args[1].should.eql('Bob');
-			done();
-		}).catch(done);
+		}).finally(done);
 	});
 
 	it('should not omit null (undefined) items', function (done) {
@@ -51,15 +49,13 @@ describe('nofail', function () {
 			results.should.containEql('Hi Melissa');
 			results.should.containEql(null);
 			results.should.containEql(undefined);
-			done();
-		}).catch(done);
+		}).finally(done);
 	});
 
 	it('should return empty array if everything fails', function (done) {
 		execute(['Bob', 'Bob']).then(function (results) {
 			results.should.have.lengthOf(0);
-			done();
-		}).catch(done);
+		}).finally(done);
 	});
 
 	it('should pass all arguments to wrapped function', function (done) {
